@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DigiBot – Login</title>
+  <link rel="stylesheet" href="style.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    html, body { height: 100%; width: 100%; overflow: hidden; }
+
+    body {
+      display: flex; justify-content: center; align-items: center;
+      background: linear-gradient(-45deg, #0a1b2b, #0d2238, #12304b, #0a1b2b);
+      background-size: 400% 400%; animation: gradientBG 15s ease infinite;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .navbar { position: absolute; top: 0; left: 0; width: 100%; display: flex; justify-content: space-between;
+      align-items: center; padding: 20px 50px; background-color: rgba(0,0,0,0.5); z-index: 10; }
+    .navbar a.logo { color: #38ef7d; font-size: 22px; font-weight: bold; text-decoration: none; }
+    .navbar ul { display: flex; list-style: none; }
+    .navbar ul li { margin-left: 25px; }
+    .navbar ul li a { color: #fff; text-decoration: none; font-size: 16px; }
+    .navbar ul li a:hover { color: #38ef7d; }
+
+    .wrapper {
+      width: 100%; max-width: 400px; background-color: rgba(20,30,45,0.95);
+      padding: 30px 25px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      animation: fadeInUp 0.8s ease-in-out;
+    }
+
+    h1 { text-align: center; color: #fff; margin-bottom: 25px; font-size: 28px; }
+    .input-box { position: relative; margin-bottom: 18px; }
+    .input-box input {
+      width: 100%; padding: 12px 12px 12px 40px; border: 1.5px solid #ccc; border-radius: 6px;
+      font-size: 16px;
+    }
+    .input-box i { position: absolute; top: 50%; left: 12px; transform: translateY(-50%); color: #888; }
+
+    .Remember-Forgot { display: flex; justify-content: space-between; margin-bottom: 20px; color: #fff; }
+    .Remember-Forgot a { color: #38ef7d; }
+
+    button.btn {
+      width: 100%; padding: 14px; background-color: #38ef7d; color: #fff;
+      border: none; border-radius: 6px; font-size: 18px; cursor: pointer;
+    }
+
+    .register-link { text-align: center; margin-top: 18px; color: #fff; }
+    .register-link a { color: #38ef7d; }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <a href="#" class="logo">DigiBot</a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- LOGIN FORM -->
+  <div class="wrapper">
+    <form id="loginForm">
+      <h1>Login</h1>
+
+      <div class="input-box">
+        <input type="email" id="email" placeholder="Email Address" required>
+        <i class='bx bxs-envelope'></i>
+      </div>
+
+      <div class="input-box">
+        <input type="password" id="password" placeholder="Password" required>
+        <i class='bx bxs-lock-alt'></i>
+      </div>
+
+      <div class="Remember-Forgot">
+        <label><input type="checkbox"> Remember me</label>
+        <a href="ForgotPassword.html">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="btn">Login</button>
+
+      <div class="register-link">
+        <p>New to DBS? <a href="Register.html">Create an account</a></p>
+      </div>
+    </form>
+  </div>
+
+  
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (!email || !password) {
+        alert("Please enter both email and password.");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://127.0.0.1:8000/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.status === "otp_required") {
+          alert("OTP sent to your email!");
+          localStorage.setItem("email", email);
+          window.location.href = "otp.html";
+        } else {
+          alert(data.detail || "Login failed");
+        }
+
+      } catch (err) {
+        console.error("Fetch error:", err);
+        alert("Cannot reach backend.");
+      }
+    });
+  </script>
+
+</body>
+</html>

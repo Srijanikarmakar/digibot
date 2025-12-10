@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enter OTP – DBS Bank</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(-45deg, #0a1b2b, #0d2238, #12304b, #0a1b2b);
+      background-size: 400% 400%; animation: gradientBG 15s ease infinite;
+      display: flex; justify-content: center; align-items: center; height: 100vh;
+      color: white;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      background: rgba(20, 30, 45, 0.95);
+      padding: 30px;
+      border-radius: 10px;
+      width: 350px;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      margin-bottom: 20px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #38ef7d;
+      border: none;
+      font-size: 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #2bb673;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Enter OTP</h2>
+    <p>We have sent a 6-digit OTP to your email.</p>
+
+    <input type="text" id="otpInput" placeholder="Enter OTP">
+
+    <button onclick="verify()">Verify OTP</button>
+  </div>
+
+  <script>
+    async function verify() {
+      const otp = document.getElementById("otpInput").value.trim();
+      const email = localStorage.getItem("email");
+
+      if (!otp) {
+        alert("Please enter OTP!");
+        return;
+      }
+
+      const response = await fetch("http://127.0.0.1:8000/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp })
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.status === "success") {
+        alert("Login Successful!");
+        window.location.href = "chatbot.html";
+      } else {
+        alert(result.detail || "Invalid OTP");
+      }
+    }
+  </script>
+
+</body>
+</html>

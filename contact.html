@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #1e2a38 ;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #f3f4f7;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #243447;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-field {
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    textarea {
+      height: 100px;
+      resize: none;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .contact-icons {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .contact-icons i {
+      font-size: 24px;
+      color: #007bff;
+      margin: 0 10px;
+      transition: color 0.3s;
+    }
+
+    .contact-icons i:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Contact Us</h1>
+    <form>
+      <div class="input-field">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+      </div>
+      <div class="input-field">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Your Email" required>
+      </div>
+      <div class="input-field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+      </div>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+
+    <div class="contact-icons">
+      <a href="https://www.facebook.com" target="_blank"><i class='bx bxl-facebook'></i></a>
+      <a href="https://www.twitter.com" target="_blank"><i class='bx bxl-twitter'></i></a>
+      <a href="https://www.instagram.com" target="_blank"><i class='bx bxl-instagram'></i></a>
+    </div>
+  </div>
+
+</body>
+
+</html>
