@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-multipart
+pydantic
+email-validator
+numpy
+sentence-transformers
+faiss-cpu
+weaviate-client
+requests
